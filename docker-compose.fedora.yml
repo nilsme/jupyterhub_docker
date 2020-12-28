@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  jupyterhub:
+    volumes:
+      - /home:/home
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /etc/gshadow:/etc/gshadow:ro
+      - /etc/group:/etc/group:ro
+      - /etc/pam.d:/etc/pam.d:ro
+      - /etc/authselect/:/etc/authselect:ro

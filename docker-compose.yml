@@ -1,0 +1,51 @@
+version: '3'
+services:
+  ssl:
+    image: paulczar/omgwtfssl
+    restart: "no"
+    volumes:
+      - certs:/certs
+    environment:
+      - SSL_SUBJECT=${SSL_SUBJECT}
+      - CA_SUBJECT=${CA_SUBJECT}
+      - SSL_KEY=${SSL_KEY}
+      - SSL_CSR=${SSL_CSR}
+      - SSL_CERT=${SSL_CERT}
+
+  proxy:
+    image: nginx
+    container_name: jupyterhub_docker_proxy
+    restart: unless-stopped
+    ports:
+      - 10444:443/tcp
+    volumes:
+      - certs:/etc/ssl
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - proxy-tier
+    depends_on:
+      - ssl
+
+  jupyterhub:
+    build:
+      context: ./jupyterhub
+      args:
+        - MINICONDA_VERSION=${MINICONDA_VERSION}
+        - MD5=${MD5}
+    image: jupyterhub_docker_app
+    container_name: jupyterhub_docker_app
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./jupyterhub/jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro
+    networks:
+      - proxy-tier
+    depends_on:
+      - ssl
+
+volumes:
+  certs:
+
+networks:
+  proxy-tier:
