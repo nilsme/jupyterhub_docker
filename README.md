@@ -25,10 +25,7 @@ After a successful run Jupyterhub can be accessed on `https://<ip-of-your-machin
 #### Create a User
 
 ```shell script
-JUPYTER_USER=test
-JUPYTER_PASS=test
-docker exec jupyterhub_docker_app useradd -m $JUPYTER_USER
-echo -e "$JUPYTER_PASS\n$JUPYTER_PASS" | docker exec -i jupyterhub_docker_app passwd $JUPYTER_USER
+./scripts/create_user.sh <username> <password>
 ```
 
 #### Stop all Services
@@ -46,5 +43,5 @@ docker-compose -f docker-compose.yml -f docker-compose.fedora.yml up -d
 ```
 
 Juoyterhub will use the `/home` directory of the host as its `/home` directory and also use the `/etc/passwd`,
-`/etc/group`, `/etc/shadow`, `/etc/gshadow`, and `/etc/pamd.d` from the host machine. Which means that the
-Jupyterhub admin group (`jupyterhub-admins`) must exist on the host, even if no user are a member of the group.
+`/etc/group`, `/etc/shadow`, `/etc/gshadow`, `/etc/pamd.d`, and `/etc/authselect/` from the host machine. Which means
+that the Jupyterhub admin group (`jupyterhub-admins`) must exist on the host, even if no user is a member of the group.
