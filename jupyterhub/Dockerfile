@@ -5,7 +5,6 @@ ARG MINICONDA_VERSION
 ARG MD5
 
 # set environment
-ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Europe/Amsterdam
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8

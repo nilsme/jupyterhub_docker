@@ -17,8 +17,9 @@ c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
 c.PAMAuthenticator.admin_groups = {'jupyterhub-admins'}
 
 ## The public facing URL of the whole JupyterHub application.
-# Force the proxy to only listen to connections to 127.0.0.1 (on port 8000)
-c.JupyterHub.bind_url = 'http://127.0.0.1:8000'
+# Force the proxy to only listen to connections to 127.0.0.1 or 0.0.0.0 (on port 8000)
+# Should work with 127.0.0.1 but could only work with 0.0.0.0
+c.JupyterHub.bind_url = 'http://0.0.0.0:8000'
 
 ## The config file to load
 c.JupyterHub.config_file = '/srv/jupyterhub/jupyterhub_config.py'
