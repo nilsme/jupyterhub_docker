@@ -34,12 +34,12 @@ After a successful run Jupyterhub can be accessed on `https://<ip-of-your-machin
 docker-compose down
 ```
 
-### Using Host System User Management (Fedora and CentOS)
+### Using Host System User Management (tested on Fedora and CentOS)
 
 > This implies a security risk and should be used with care!
 
 ```shell script
-docker-compose -f docker-compose.yml -f docker-compose.fedora.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose.linux.yml up -d
 ```
 
 Juoyterhub will use the `/home` directory of the host as its `/home` directory and also use the `/etc/passwd`,
